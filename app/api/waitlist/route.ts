@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const CAMPAIGN_ID = 'automation-workflow-templates';
+
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
 
@@ -7,18 +9,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
   }
 
-  const resendApiKey = process.env.RESEND_API_KEY;
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
-  if (resendApiKey && audienceId) {
+  if (supabaseUrl && supabaseKey) {
     try {
-      await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
+      await fetch(`${supabaseUrl}/rest/v1/email_waitlist`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${resendApiKey}`,
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
           'Content-Type': 'application/json',
+          Prefer: 'return=minimal',
         },
-        body: JSON.stringify({ email, unsubscribed: false }),
+        body: JSON.stringify({ email, campaign_id: CAMPAIGN_ID }),
       });
     } catch {
       // fail silently
