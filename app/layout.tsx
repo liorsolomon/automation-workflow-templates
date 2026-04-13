@@ -20,14 +20,6 @@ export const metadata: Metadata = {
     description: "Ready-to-import n8n and Make workflow templates for small businesses. Automate lead capture, invoicing, social scheduling, and more. No developer needed.",
     url: "https://tools.3vo.ai",
     siteName: "Automation Workflow Templates",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Automation Workflow Templates — n8n & Make Templates for SMBs",
-      },
-    ],
     type: "website",
   },
 };

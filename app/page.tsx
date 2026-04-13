@@ -21,6 +21,14 @@ export default function Home() {
         if (typeof window !== 'undefined' && (window as any).posthog) {
           (window as any).posthog.capture('waitlist_submitted', { email });
         }
+        // Meta Pixel Lead conversion
+        if (typeof window !== 'undefined' && (window as any).fbq) {
+          (window as any).fbq('track', 'Lead');
+        }
+        // GA4 sign_up conversion
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'sign_up', { method: 'waitlist' });
+        }
       }
     } catch {
       // fail silently
