@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_ANON_KEY;
   const resendApiKey = process.env.RESEND_API_KEY;
+  const resendAudienceId = process.env.RESEND_AUDIENCE_ID;
 
   if (supabaseUrl && supabaseKey) {
     try {
@@ -31,6 +32,23 @@ export async function POST(req: NextRequest) {
   }
 
   if (resendApiKey) {
+    // Add contact to Resend audience for future marketing emails
+    if (resendAudienceId) {
+      try {
+        await fetch(`https://api.resend.com/audiences/${resendAudienceId}/contacts`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${resendApiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, unsubscribed: false }),
+        });
+      } catch (err) {
+        console.error('[waitlist] Resend audience add error:', err);
+      }
+    }
+
+    // Send confirmation email to the customer
     try {
       await fetch('https://api.resend.com/emails', {
         method: 'POST',
