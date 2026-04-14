@@ -28,7 +28,7 @@ test.describe('Automation Workflow Templates homepage', () => {
     ]);
 
     // Success: "You're on the list! 🎉"
-    await expect(page.locator('text=/on the list/i')).toBeVisible({ timeout: 8_000 });
+    await expect(page.locator('text=/on the list/i').first()).toBeVisible({ timeout: 8_000 });
   });
 
   test('workflow tool names are visible', async ({ page }) => {
