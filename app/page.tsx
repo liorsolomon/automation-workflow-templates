@@ -1,42 +1,6 @@
-'use client';
-
-import { useState } from 'react';
+import WaitlistForm from "./WaitlistForm";
 
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const res = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      if (res.ok) {
-        setSubmitted(true);
-        if (typeof window !== 'undefined' && (window as any).posthog) {
-          (window as any).posthog.capture('waitlist_submitted', { email });
-        }
-        // Meta Pixel Lead conversion
-        if (typeof window !== 'undefined' && (window as any).fbq) {
-          (window as any).fbq('track', 'Lead');
-        }
-        // GA4 sign_up conversion
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'sign_up', { method: 'waitlist' });
-        }
-      }
-    } catch {
-      // fail silently
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <main className="min-h-screen bg-gray-950 text-white">
       {/* Hero */}
@@ -56,30 +20,7 @@ export default function Home() {
             Drag, drop, connect — and watch hours of manual work disappear.
           </p>
           <div className="mt-10">
-            {submitted ? (
-              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-emerald-300">
-                <p className="text-lg font-semibold">You&apos;re on the list! 🎉</p>
-                <p className="mt-1 text-sm">We&apos;ll send you launch-day pricing and a free starter workflow.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-emerald-500 focus:outline-none sm:w-80"
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="rounded-lg bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-500 disabled:opacity-50"
-                >
-                  {loading ? 'Joining...' : 'Get Early Access'}
-                </button>
-              </form>
-            )}
+            <WaitlistForm buttonText="Get Early Access" variant="hero" />
             <p className="mt-3 text-sm text-gray-500">$49–$97 one-time · No monthly fees · Import in under 5 minutes</p>
           </div>
         </div>
@@ -109,9 +50,9 @@ export default function Home() {
           </p>
           <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
             {[
-              { icon: '🔧', title: 'No setup from scratch', desc: 'Every template is pre-built and documented' },
-              { icon: '⚡', title: 'Deploy in minutes', desc: 'Import JSON, connect your accounts, done' },
-              { icon: '🔄', title: 'Runs while you sleep', desc: 'Set it once, automate forever' },
+              { icon: "🔧", title: "No setup from scratch", desc: "Every template is pre-built and documented" },
+              { icon: "⚡", title: "Deploy in minutes", desc: "Import JSON, connect your accounts, done" },
+              { icon: "🔄", title: "Runs while you sleep", desc: "Set it once, automate forever" },
             ].map((item) => (
               <div key={item.title} className="rounded-xl border border-gray-800 bg-gray-900 p-5">
                 <div className="text-2xl">{item.icon}</div>
@@ -135,81 +76,81 @@ export default function Home() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                icon: '🎯',
-                title: 'Lead Capture → CRM',
-                price: '$49',
+                icon: "🎯",
+                title: "Lead Capture → CRM",
+                price: "$49",
                 popular: false,
                 bullets: [
-                  'Form → CRM auto-sync',
-                  'Slack/email notifications',
-                  'Lead scoring logic',
-                  'Duplicate detection',
-                  'Works with HubSpot, Notion, Airtable',
+                  "Form → CRM auto-sync",
+                  "Slack/email notifications",
+                  "Lead scoring logic",
+                  "Duplicate detection",
+                  "Works with HubSpot, Notion, Airtable",
                 ],
               },
               {
-                icon: '📄',
-                title: 'Invoice → Finance Log',
-                price: '$49',
+                icon: "📄",
+                title: "Invoice → Finance Log",
+                price: "$49",
                 popular: false,
                 bullets: [
-                  'Invoice received → log to Notion/Sheet',
-                  'Payment status tracking',
-                  'Monthly revenue rollup',
-                  'Overdue payment alerts',
-                  'Stripe + PayPal compatible',
+                  "Invoice received → log to Notion/Sheet",
+                  "Payment status tracking",
+                  "Monthly revenue rollup",
+                  "Overdue payment alerts",
+                  "Stripe + PayPal compatible",
                 ],
               },
               {
-                icon: '📅',
-                title: 'Social Post Scheduler',
-                price: '$49',
+                icon: "📅",
+                title: "Social Post Scheduler",
+                price: "$49",
                 popular: false,
                 bullets: [
-                  'Google Sheet → multi-platform post',
-                  'Twitter/X, LinkedIn, Instagram',
-                  'Image upload support',
-                  'Retry on failure',
-                  'Content calendar sync',
+                  "Google Sheet → multi-platform post",
+                  "Twitter/X, LinkedIn, Instagram",
+                  "Image upload support",
+                  "Retry on failure",
+                  "Content calendar sync",
                 ],
               },
               {
-                icon: '📧',
-                title: 'Email Ops Automation',
-                price: '$49',
+                icon: "📧",
+                title: "Email Ops Automation",
+                price: "$49",
                 popular: false,
                 bullets: [
-                  'Inbox triage & tagging',
-                  'Auto-reply sequences',
-                  'CRM ticket creation',
-                  'Follow-up reminders',
-                  'Gmail + Outlook',
+                  "Inbox triage & tagging",
+                  "Auto-reply sequences",
+                  "CRM ticket creation",
+                  "Follow-up reminders",
+                  "Gmail + Outlook",
                 ],
               },
               {
-                icon: '🛒',
-                title: 'E-commerce Operations',
-                price: '$69',
+                icon: "🛒",
+                title: "E-commerce Operations",
+                price: "$69",
                 popular: false,
                 bullets: [
-                  'New order → fulfillment trigger',
-                  'Inventory low alerts',
-                  'Customer review requests',
-                  'Refund processing flows',
-                  'Shopify + WooCommerce',
+                  "New order → fulfillment trigger",
+                  "Inventory low alerts",
+                  "Customer review requests",
+                  "Refund processing flows",
+                  "Shopify + WooCommerce",
                 ],
               },
               {
-                icon: '📦',
-                title: 'Complete Bundle',
-                price: '$97',
+                icon: "📦",
+                title: "Complete Bundle",
+                price: "$97",
                 popular: true,
                 bullets: [
-                  'All 5 workflow packs',
-                  '20+ templates total',
-                  'Lifetime updates',
-                  'Priority support',
-                  'Private Discord access',
+                  "All 5 workflow packs",
+                  "20+ templates total",
+                  "Lifetime updates",
+                  "Priority support",
+                  "Private Discord access",
                 ],
               },
             ].map((pack) => (
@@ -217,8 +158,8 @@ export default function Home() {
                 key={pack.title}
                 className={`relative rounded-xl border p-6 ${
                   pack.popular
-                    ? 'border-emerald-500 bg-emerald-500/10'
-                    : 'border-gray-700 bg-gray-800'
+                    ? "border-emerald-500 bg-emerald-500/10"
+                    : "border-gray-700 bg-gray-800"
                 }`}
               >
                 {pack.popular && (
@@ -249,9 +190,9 @@ export default function Home() {
           <h2 className="text-3xl font-bold sm:text-4xl">Up and running in 3 steps</h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-3 text-left">
             {[
-              { step: '01', title: 'Download your pack', desc: 'Get the JSON template files + setup guide instantly after purchase.' },
-              { step: '02', title: 'Import to n8n or Make', desc: 'One-click import. Your workflow structure appears ready to configure.' },
-              { step: '03', title: 'Connect & activate', desc: 'Link your accounts (CRM, email, Slack), hit activate — automation starts immediately.' },
+              { step: "01", title: "Download your pack", desc: "Get the JSON template files + setup guide instantly after purchase." },
+              { step: "02", title: "Import to n8n or Make", desc: "One-click import. Your workflow structure appears ready to configure." },
+              { step: "03", title: "Connect & activate", desc: "Link your accounts (CRM, email, Slack), hit activate — automation starts immediately." },
             ].map((s) => (
               <div key={s.step} className="rounded-xl border border-gray-800 bg-gray-900 p-6">
                 <div className="text-4xl font-extrabold text-emerald-500/30">{s.step}</div>
@@ -270,19 +211,22 @@ export default function Home() {
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
             {[
               {
-                quote: "I set up the lead capture workflow in 20 minutes. It now auto-syncs every form submission to my CRM and pings Slack. Saved me 3 hours a week immediately.",
-                name: 'James R.',
-                role: 'Agency Founder',
+                quote:
+                  "I set up the lead capture workflow in 20 minutes. It now auto-syncs every form submission to my CRM and pings Slack. Saved me 3 hours a week immediately.",
+                name: "James R.",
+                role: "Agency Founder",
               },
               {
-                quote: "The invoice log template alone was worth it. I was manually copying Stripe data to a spreadsheet every week. Not anymore.",
-                name: 'Keiko T.',
-                role: 'Freelance Consultant',
+                quote:
+                  "The invoice log template alone was worth it. I was manually copying Stripe data to a spreadsheet every week. Not anymore.",
+                name: "Keiko T.",
+                role: "Freelance Consultant",
               },
               {
-                quote: "Non-technical founder here. I was terrified of n8n. These templates made it click. I now run 4 automations I built myself.",
-                name: 'Daniel M.',
-                role: 'SMB Owner',
+                quote:
+                  "Non-technical founder here. I was terrified of n8n. These templates made it click. I now run 4 automations I built myself.",
+                name: "Daniel M.",
+                role: "SMB Owner",
               },
             ].map((t) => (
               <div key={t.name} className="rounded-xl border border-gray-700 bg-gray-800 p-6">
@@ -309,27 +253,7 @@ export default function Home() {
             plus 30% off any pack.
           </p>
           <div className="mt-8">
-            {submitted ? (
-              <p className="text-emerald-300 text-lg font-semibold">You&apos;re already on the list! ✅</p>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-emerald-500 focus:outline-none sm:w-80"
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="rounded-lg bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-500 disabled:opacity-50"
-                >
-                  {loading ? 'Joining...' : 'Get Free Starter Template'}
-                </button>
-              </form>
-            )}
+            <WaitlistForm buttonText="Get Free Starter Template" variant="cta" />
             <p className="mt-3 text-sm text-gray-500">Packs $49–$97 · Bundle $97 · One-time payment</p>
           </div>
         </div>

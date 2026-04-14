@@ -6,6 +6,7 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,6 +22,11 @@ export const metadata: Metadata = {
     url: "https://tools.3vo.ai",
     siteName: "Automation Workflow Templates",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Automation Workflow Templates — n8n & Make Templates for SMBs",
+    description: "Ready-to-import n8n and Make workflow templates for small businesses. Automate lead capture, invoicing, social scheduling, and more. No developer needed.",
   },
 };
 
