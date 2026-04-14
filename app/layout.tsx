@@ -27,6 +27,22 @@ export const metadata: Metadata = {
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "Automation Workflow Templates",
+  description:
+    "Ready-to-import n8n and Make workflow templates for small businesses. Automate lead capture, invoicing, social scheduling, and more.",
+  url: "https://tools.3vo.ai",
+  offers: {
+    "@type": "AggregateOffer",
+    lowPrice: "19",
+    highPrice: "49",
+    priceCurrency: "USD",
+    availability: "https://schema.org/PreOrder",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,6 +50,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} h-full antialiased`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col font-sans">
         {children}
 
