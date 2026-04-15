@@ -338,6 +338,16 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-gray-800 px-6 py-8 text-center text-sm text-gray-500">
         <p>© 2026 Automation Workflow Templates. All rights reserved.</p>
+        <p className="mt-2">
+          <a
+            href="https://x.com/3voai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gray-300 transition-colors"
+          >
+            Follow us on X @3voai
+          </a>
+        </p>
       </footer>
     </main>
   );
