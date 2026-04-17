@@ -46,7 +46,7 @@ export default function Home() {
           <p className="mt-6 text-gray-400">
             You have the tools — n8n, Make, Zapier. But staring at a blank canvas and
             figuring out triggers, filters, and error handling takes days you don&apos;t have.
-            Our templates skip straight to working.
+            Start with working templates, not blank screens.
           </p>
           <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
             {[
@@ -144,6 +144,8 @@ export default function Home() {
                 icon: "📦",
                 title: "Complete Bundle",
                 price: "$97",
+                originalPrice: "$265",
+                savings: "Save $168",
                 popular: true,
                 bullets: [
                   "All 5 workflow packs",
@@ -169,7 +171,15 @@ export default function Home() {
                 )}
                 <div className="text-2xl">{pack.icon}</div>
                 <h3 className="mt-2 text-lg font-bold">{pack.title}</h3>
-                <div className="mt-1 text-2xl font-extrabold text-emerald-400">{pack.price}</div>
+                <div className="mt-1 flex items-baseline gap-2">
+                  <span className="text-2xl font-extrabold text-emerald-400">{pack.price}</span>
+                  {pack.originalPrice && (
+                    <span className="text-sm line-through text-gray-500">{pack.originalPrice}</span>
+                  )}
+                  {pack.savings && (
+                    <span className="text-xs font-semibold text-emerald-300 bg-emerald-900/50 px-1.5 py-0.5 rounded">{pack.savings}</span>
+                  )}
+                </div>
                 <ul className="mt-4 space-y-1.5 text-sm text-gray-300">
                   {pack.bullets.map((b) => (
                     <li key={b} className="flex items-start gap-2">
