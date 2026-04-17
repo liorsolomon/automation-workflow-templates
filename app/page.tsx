@@ -510,18 +510,17 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 px-6 py-8 text-center text-sm text-gray-500">
-        <p>© 2026 Automation Workflow Templates. All rights reserved.</p>
-        <p className="mt-2">
-          <a
-            href="https://x.com/3voai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-gray-300 transition-colors"
-          >
-            Follow us on X @3voai
-          </a>
-        </p>
+      <footer className="border-t border-gray-800 px-6 py-10 text-center text-sm text-gray-500">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <a href="/about" className="hover:text-gray-300 transition">About</a>
+            <a href="/contact" className="hover:text-gray-300 transition">Contact</a>
+            <a href="/privacy" className="hover:text-gray-300 transition">Privacy Policy</a>
+            <a href="/terms" className="hover:text-gray-300 transition">Terms of Use</a>
+            <a href="https://x.com/3voai" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition">X @3voai</a>
+          </div>
+          <p>© 2026 Automation Workflow Templates. All rights reserved.</p>
+        </div>
       </footer>
     </main>
   );
