@@ -269,9 +269,67 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-center text-3xl font-bold sm:text-4xl">Frequently asked questions</h2>
+          <div className="mt-10 space-y-4">
+            {[
+              {
+                q: "Do I need to know how to code?",
+                a: "Not at all. These are JSON workflow files you import with one click into n8n or Make (Integromat). The templates are fully pre-built — just connect your accounts and hit activate.",
+              },
+              {
+                q: "Which automation tools do these work with?",
+                a: "All templates are available in n8n and Make (Integromat) formats. n8n is open-source and self-hostable; Make has a generous free tier. You pick what fits your stack.",
+              },
+              {
+                q: "What if the template doesn't work with my setup?",
+                a: "We offer a 30-day money-back guarantee. If you can't get a template running in your environment, email us and we'll either fix it or refund you — no questions asked.",
+              },
+              {
+                q: "How long does setup actually take?",
+                a: "Most templates are live in under 5 minutes: import the JSON, connect your credentials (CRM, email, Slack), test, activate. Each pack includes a step-by-step setup guide.",
+              },
+              {
+                q: "What CRMs and tools are supported?",
+                a: "Templates connect to the most common business tools: HubSpot, Notion, Airtable, Google Sheets, Slack, Gmail, Outlook, Stripe, Shopify, WooCommerce, and more.",
+              },
+              {
+                q: "Do I need a paid n8n or Make plan?",
+                a: "Make has a free tier that covers most templates. n8n is free to self-host. Cloud pricing varies — check their sites for current plans. Our templates work within standard limits.",
+              },
+              {
+                q: "What's included in the bundle vs individual packs?",
+                a: "Individual packs are $49–$69 each. The Complete Bundle ($97) includes all 5 packs (20+ templates total), lifetime updates, priority support, and private Discord access — saving $168 vs buying separately.",
+              },
+            ].map((item) => (
+              <details
+                key={item.q}
+                className="group rounded-xl border border-gray-800 bg-gray-900 px-6 py-4 open:border-emerald-500/50"
+              >
+                <summary className="flex cursor-pointer items-center justify-between font-semibold text-white list-none">
+                  {item.q}
+                  <span className="ml-4 shrink-0 text-gray-400 transition group-open:rotate-45">+</span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-gray-400">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="border-t border-gray-800 px-6 py-8 text-center text-sm text-gray-500">
-        <p>© 2026 Automation Workflow Templates. All rights reserved.</p>
+      <footer className="border-t border-gray-800 px-6 py-10 text-center text-sm text-gray-500">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <a href="/about" className="hover:text-gray-300 transition">About</a>
+            <a href="/contact" className="hover:text-gray-300 transition">Contact</a>
+            <a href="/privacy" className="hover:text-gray-300 transition">Privacy Policy</a>
+            <a href="/terms" className="hover:text-gray-300 transition">Terms of Use</a>
+          </div>
+          <p>© 2026 Automation Workflow Templates. All rights reserved.</p>
+        </div>
       </footer>
     </main>
   );
