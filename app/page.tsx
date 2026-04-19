@@ -1,102 +1,57 @@
 "use client";
 
 import { useState } from "react";
+import WaitlistForm from "./WaitlistForm";
+
+const WHY = [
+  {
+    title: "One-time, not subscription.",
+    description: "Plutio and Agiled charge $228+/yr. You pay once.",
+  },
+  {
+    title: "Built for solopreneurs, not agencies.",
+    description: "No bloated feature sets. Every tool in the bundle earns its place.",
+  },
+  {
+    title: "Ready to use.",
+    description: "Pre-configured templates and workflows — not a blank canvas you spend hours setting up.",
+  },
+];
+
+const WHATS_INCLUDED = [
+  "Automation workflow templates (n8n/Make compatible)",
+  "Client onboarding checklist and CRM template",
+  "Invoicing and payment tracking sheet",
+  "Weekly review and planning system",
+  "Solopreneur OS (Notion template)",
+  "Email templates for outreach, follow-up, and delivery",
+];
+
+const FAQS = [
+  {
+    q: "Do I need specific software to use these?",
+    a: "Most tools are Notion and Google Workspace compatible. Automation templates require n8n or Make (both have free tiers).",
+  },
+  {
+    q: "Is this a subscription?",
+    a: "No. One-time purchase. Lifetime access.",
+  },
+  {
+    q: "What if a tool doesn't work for my workflow?",
+    a: "The bundle is designed to be modular — use what works, ignore what doesn't.",
+  },
+  {
+    q: "Are updates included?",
+    a: "Yes. New tools and updates are included with your one-time purchase.",
+  },
+  {
+    q: "I already use some of these tools. Is it still worth it?",
+    a: "If even 2–3 tools in the bundle save you an hour a week, it pays for itself in the first month.",
+  },
+];
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  const faqs = [
-    { q: 'Do I need a Zapier or Make account?', a: 'Yes — both have free tiers. Paid tiers are needed for multi-step workflows, but you can test on free.' },
-    { q: 'How technical do I need to be?', a: 'If you can connect an app to Zapier, you can use these. No coding required. Setup guides walk you through every step.' },
-    { q: 'What apps do the templates connect?', a: 'HubSpot, Pipedrive, Gmail, Notion, Slack, Calendly — varies by template. Full app list in each pack description.' },
-    { q: 'Can I modify the workflows?', a: 'Yes — fully visual, no coding required. Change triggers, add steps, or connect different apps as needed.' },
-    { q: 'Is the bundle worth it?', a: 'If you need more than one workflow category, yes. Individual packs $49–$97 each. Full bundle: $97 — you save $168.' },
-    { q: 'What format are the templates?', a: 'JSON files you import directly into n8n or Make. Each pack also includes a PDF setup guide and troubleshooting doc.' },
-    { q: 'What is your refund policy?', a: '30-day full refund, no questions asked. If you set it up and it does not work for you, we will give you your money back.' },
-  ];
-
-  const packs = [
-    {
-      icon: "🎯",
-      title: "Lead Capture → CRM",
-      price: "$49",
-      popular: false,
-      bullets: [
-        "Form → CRM auto-sync",
-        "Slack/email notifications",
-        "Lead scoring logic",
-        "Duplicate detection",
-        "Works with HubSpot, Notion, Airtable",
-      ],
-    },
-    {
-      icon: "📄",
-      title: "Invoice → Finance Log",
-      price: "$49",
-      popular: false,
-      bullets: [
-        "Invoice received → log to Notion/Sheet",
-        "Payment status tracking",
-        "Monthly revenue rollup",
-        "Overdue payment alerts",
-        "Stripe + PayPal compatible",
-      ],
-    },
-    {
-      icon: "📅",
-      title: "Social Post Scheduler",
-      price: "$49",
-      popular: false,
-      bullets: [
-        "Google Sheet → multi-platform post",
-        "Twitter/X, LinkedIn, Instagram",
-        "Image upload support",
-        "Retry on failure",
-        "Content calendar sync",
-      ],
-    },
-    {
-      icon: "📧",
-      title: "Email Ops Automation",
-      price: "$49",
-      popular: false,
-      bullets: [
-        "Inbox triage & tagging",
-        "Auto-reply sequences",
-        "CRM ticket creation",
-        "Follow-up reminders",
-        "Gmail + Outlook",
-      ],
-    },
-    {
-      icon: "🛒",
-      title: "E-commerce Operations",
-      price: "$69",
-      popular: false,
-      bullets: [
-        "New order → fulfillment trigger",
-        "Inventory low alerts",
-        "Customer review requests",
-        "Refund processing flows",
-        "Shopify + WooCommerce",
-      ],
-    },
-    {
-      icon: "📦",
-      title: "Complete Bundle",
-      price: "$97",
-      originalPrice: "$265",
-      savings: "Save $168",
-      popular: true,
-      bullets: [
-        'All 5 workflow packs (save $168)',
-        '20+ templates total',
-        'Lifetime updates',
-        'Priority support',
-        'Private Discord access',
-      ],
-    },
-  ];
 
   return (
     <main className="min-h-screen bg-gray-950 text-white">
@@ -106,263 +61,76 @@ export default function Home() {
         <div className="relative mx-auto max-w-3xl">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm text-emerald-300">
             <span className="inline-block h-2 w-2 rounded-full bg-emerald-400" />
-            No developer required · Works with n8n &amp; Make
+            One-time · No monthly fee · No renewals
           </div>
           <h1 className="mt-6 text-4xl font-extrabold tracking-tight sm:text-6xl">
-            Automate your business<br />
-            <span className="text-emerald-400">without writing a single line of code.</span>
+            The solopreneur toolkit —<br />
+            <span className="text-emerald-400">without the $228/yr SaaS bill.</span>
           </h1>
           <p className="mt-6 text-lg text-gray-300 sm:text-xl">
-            Ready-to-import n8n and Make workflow templates for SMBs, agencies, and ops teams.
-            Start with working templates, not blank screens.
+            A curated bundle of productivity tools built for people who run lean: automation
+            workflows, client management, invoicing, and more. One-time access. No monthly fee.
+            No renewals.
           </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#pricing"
-              className="rounded-lg bg-emerald-600 px-8 py-3 font-semibold text-white transition hover:bg-emerald-500"
-            >
-              Get the Full Bundle — $97
-            </a>
-            <a
-              href="#pricing"
-              className="rounded-lg border border-gray-600 px-8 py-3 font-semibold text-gray-300 transition hover:bg-gray-800"
-            >
-              See Individual Packs ↓
-            </a>
+          <div className="mt-10 flex justify-center">
+            <WaitlistForm buttonText="Get it — $97" />
           </div>
-          <p className="mt-3 text-sm text-gray-500">Individual packs $49–$69 · Bundle $97 (save $168) · One-time payment · 30-day guarantee</p>
+          <p className="mt-3 text-sm text-gray-500">$97 — one-time · No subscription · Lifetime access</p>
         </div>
       </section>
 
-      {/* Social proof bar */}
-      <div className="border-y border-gray-800 bg-gray-900 px-6 py-5 text-center">
-        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-10 gap-y-2 text-sm text-gray-400">
-          <span>✦ Works with n8n &amp; Make (Integromat)</span>
-          <span>✦ Import in under 5 minutes</span>
-          <span>✦ Used by 800+ SMBs</span>
-          <span>✦ Saves 10+ hours/week</span>
-        </div>
-      </div>
-
-      {/* Who This Is For */}
+      {/* Why tools.3vo.ai */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl mb-12">Who this is for</h2>
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-6">
-              <h3 className="font-bold text-emerald-400 mb-4">This is for you if…</h3>
-              <ul className="space-y-3 text-sm text-gray-300">
-                {[
-                  'You run a lean business and waste hours on repetitive tasks every week',
-                  'You have n8n or Make but keep staring at a blank canvas not knowing where to start',
-                  'You want real automation — not just simple zaps — without hiring a developer',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <span className="text-emerald-400 mt-0.5 shrink-0">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="rounded-xl border border-gray-700 bg-gray-900 p-6">
-              <h3 className="font-bold text-gray-400 mb-4">Not for you if…</h3>
-              <ul className="space-y-3 text-sm text-gray-400">
-                {[
-                  'You need enterprise-level custom automation with complex SLAs',
-                  'You want someone to build the workflow for you end-to-end — this is DIY',
-                  'Your business has no repetitive processes that could be automated',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <span className="text-gray-600 mt-0.5 shrink-0">✗</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Problem */}
-      <section className="bg-gray-900 px-6 py-20 text-center">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="text-3xl font-bold sm:text-4xl">
-            You know automation would save you hours.<br />
-            <span className="text-emerald-400">But building workflows from scratch is hard.</span>
-          </h2>
-          <p className="mt-6 text-gray-400">
-            You have the tools — n8n, Make, Zapier. But staring at a blank canvas and
-            figuring out triggers, filters, and error handling takes days you don&apos;t have.
-            Start with working templates, not blank screens.
-          </p>
-          <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
-            {[
-              { icon: "🔧", title: "No setup from scratch", desc: "Every template is pre-built and documented" },
-              { icon: "⚡", title: "Deploy in minutes", desc: "Import JSON, connect your accounts, done" },
-              { icon: "🔄", title: "Runs while you sleep", desc: "Set it once, automate forever" },
-            ].map((item) => (
-              <div key={item.title} className="rounded-xl border border-gray-800 bg-gray-950 p-5">
-                <div className="text-2xl">{item.icon}</div>
-                <h3 className="mt-2 font-semibold">{item.title}</h3>
-                <p className="mt-1 text-sm text-gray-400">{item.desc}</p>
+          <h2 className="text-center text-3xl font-bold sm:text-4xl mb-12">Why tools.3vo.ai</h2>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {WHY.map((item) => (
+              <div key={item.title} className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-6">
+                <h3 className="font-bold text-emerald-400 mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-300 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Template packs */}
-      <section id="pricing" className="px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">
-            Workflow packs built for real business needs
-          </h2>
-          <p className="mt-4 text-center text-gray-400">
-            Each pack includes full JSON templates, setup guide, and troubleshooting docs.
-          </p>
-          <p className="mt-2 text-center text-sm text-emerald-400 font-semibold">
-            Individual packs $49–$69 each. Full bundle: <span className="line-through text-gray-500">$265</span> $97 — save $168.
-          </p>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {packs.map((pack) => (
-              <div
-                key={pack.title}
-                className={`relative rounded-xl border p-6 flex flex-col ${
-                  pack.popular
-                    ? "border-emerald-500 bg-emerald-500/10"
-                    : "border-gray-700 bg-gray-800"
-                }`}
-              >
-                {pack.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-0.5 text-xs font-semibold">
-                    BEST VALUE
-                  </div>
-                )}
-                <div className="text-2xl">{pack.icon}</div>
-                <h3 className="mt-2 text-lg font-bold">{pack.title}</h3>
-                <div className="mt-1 flex items-baseline gap-2">
-                  <span className="text-2xl font-extrabold text-emerald-400">{pack.price}</span>
-                  {pack.originalPrice && (
-                    <span className="text-sm line-through text-gray-500">{pack.originalPrice}</span>
-                  )}
-                  {pack.savings && (
-                    <span className="text-xs font-semibold text-emerald-300 bg-emerald-900/50 px-1.5 py-0.5 rounded">{pack.savings}</span>
-                  )}
-                </div>
-                <ul className="mt-4 space-y-1.5 text-sm text-gray-300 flex-1">
-                  {pack.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2">
-                      <span className="mt-0.5 text-emerald-400">✓</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#"
-                  className={`mt-5 block text-center rounded-lg py-2.5 text-sm font-semibold transition ${
-                    pack.popular
-                      ? "bg-emerald-600 text-white hover:bg-emerald-500"
-                      : "border border-emerald-600 text-emerald-400 hover:bg-emerald-600 hover:text-white"
-                  }`}
-                >
-                  {pack.popular
-                    ? `Get the Full Bundle — ${pack.price}`
-                    : `Get ${pack.title} — ${pack.price}`}
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* What You Get */}
+      {/* What's included */}
       <section className="bg-gray-900 px-6 py-20">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl mb-4">What you get</h2>
-          <p className="text-center text-gray-400 mb-10">Every pack includes everything you need to go live — no guessing, no extras to buy.</p>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              { icon: '📁', title: 'JSON workflow files', desc: 'Import directly into n8n or Make in one click.' },
-              { icon: '📖', title: 'Step-by-step setup guide', desc: 'PDF walkthrough — account connection, variables, activation.' },
-              { icon: '🔧', title: 'Troubleshooting doc', desc: 'Common errors and fixes so you are never stuck.' },
-              { icon: '♾️', title: 'Lifetime updates', desc: 'We update templates when platforms change. You get every update free.' },
-            ].map((item) => (
-              <div key={item.title} className="flex gap-4 rounded-xl border border-gray-800 bg-gray-950 p-5">
-                <div className="text-2xl shrink-0">{item.icon}</div>
-                <div>
-                  <h3 className="font-semibold">{item.title}</h3>
-                  <p className="mt-1 text-sm text-gray-400">{item.desc}</p>
-                </div>
-              </div>
+          <h2 className="text-center text-3xl font-bold sm:text-4xl mb-4">What&apos;s included</h2>
+          <p className="text-center text-gray-400 mb-10">Everything you need to run lean — no extras to buy.</p>
+          <ul className="space-y-4">
+            {WHATS_INCLUDED.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-gray-300 text-sm leading-relaxed">
+                <span className="text-emerald-400 font-bold mt-0.5">✓</span>
+                <span>{item}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="px-6 py-20">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">Up and running in 3 steps</h2>
-          <div className="mt-12 grid gap-6 sm:grid-cols-3 text-left">
-            {[
-              { step: "01", title: "Buy your pack", desc: "Choose your pack or grab the bundle. Instant download — no waiting." },
-              { step: "02", title: "Import to n8n or Make", desc: "One-click import. Your workflow structure appears ready to configure." },
-              { step: "03", title: "Connect & activate", desc: "Link your accounts (CRM, email, Slack), hit activate — automation starts immediately." },
-            ].map((s) => (
-              <div key={s.step} className="rounded-xl border border-gray-800 bg-gray-900 p-6">
-                <div className="text-4xl font-extrabold text-emerald-500/30">{s.step}</div>
-                <h3 className="mt-2 font-bold">{s.title}</h3>
-                <p className="mt-2 text-sm text-gray-400">{s.desc}</p>
-              </div>
-            ))}
+      {/* Market context */}
+      <section className="px-6 py-16">
+        <div className="mx-auto max-w-3xl grid gap-6 sm:grid-cols-2 text-center">
+          <div className="rounded-xl border border-gray-800 bg-gray-900 p-8">
+            <div className="text-4xl font-extrabold text-emerald-400 mb-2">20%</div>
+            <p className="text-sm text-gray-400">of solopreneurs&apos; work time spent on admin tasks <span className="text-gray-600">(McKinsey, 2022)</span></p>
           </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="bg-gray-900 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-3xl font-bold">What our customers are saying</h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            {[
-              {
-                quote:
-                  "I set up the lead capture workflow in 20 minutes. It now auto-syncs every form submission to my CRM and pings Slack. Saved me 3 hours a week immediately.",
-                name: "James R.",
-                role: "Agency Founder",
-              },
-              {
-                quote:
-                  "The invoice log template alone was worth it. I was manually copying Stripe data to a spreadsheet every week. Not anymore.",
-                name: "Keiko T.",
-                role: "Freelance Consultant",
-              },
-              {
-                quote:
-                  "Non-technical founder here. I was terrified of n8n. These templates made it click. I now run 4 automations I built myself.",
-                name: "Daniel M.",
-                role: "SMB Owner",
-              },
-            ].map((t) => (
-              <div key={t.name} className="rounded-xl border border-gray-700 bg-gray-800 p-6">
-                <p className="text-sm text-gray-300 italic">&ldquo;{t.quote}&rdquo;</p>
-                <div className="mt-4">
-                  <p className="font-semibold">{t.name}</p>
-                  <p className="text-sm text-gray-500">{t.role}</p>
-                </div>
-              </div>
-            ))}
+          <div className="rounded-xl border border-gray-800 bg-gray-900 p-8">
+            <div className="text-4xl font-extrabold text-emerald-400 mb-2">$150–300</div>
+            <p className="text-sm text-gray-400">average monthly SaaS spend for a freelancer — you pay once and done</p>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="px-6 py-20">
+      <section className="bg-gray-900 px-6 py-20">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-center text-3xl font-bold sm:text-4xl mb-10">Frequently asked questions</h2>
           <div className="space-y-3">
-            {faqs.map((faq, i) => (
-              <div key={i} className="rounded-xl border border-gray-800 bg-gray-900 overflow-hidden">
+            {FAQS.map((faq, i) => (
+              <div key={i} className="rounded-xl border border-gray-800 bg-gray-950 overflow-hidden">
                 <button
                   className="w-full text-left px-6 py-4 flex items-center justify-between gap-4 hover:bg-gray-800 transition-colors"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
@@ -379,45 +147,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Guarantee */}
-      <section className="bg-gray-900 px-6 py-16">
-        <div className="mx-auto max-w-2xl text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full border-2 border-emerald-500 bg-emerald-500/10 text-2xl mb-6">
-            🛡️
-          </div>
-          <h2 className="text-2xl font-bold">30-day money-back guarantee</h2>
-          <p className="mt-4 text-gray-400">
-            No questions asked. If you set up the templates and they do not work for your use case, we will give you a full refund within 30 days.
-          </p>
-        </div>
-      </section>
-
       {/* Final CTA */}
       <section className="bg-gradient-to-br from-emerald-900 to-gray-950 px-6 py-24 text-center">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-3xl font-extrabold sm:text-4xl">
-            Your next 10 hours of manual work<br />
-            <span className="text-emerald-400">should be running on autopilot.</span>
+            Stop paying monthly for tools<br />
+            <span className="text-emerald-400">you can own once.</span>
           </h2>
           <p className="mt-4 text-gray-300">
-            Get all 5 workflow packs in one bundle and save $168 vs buying individually.
-            One-time payment. Instant download. 30-day guarantee.
+            Everything a solopreneur needs to run lean — automation, client management, invoicing,
+            planning. One-time. Yours forever.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#"
-              className="rounded-lg bg-emerald-600 px-8 py-3 font-semibold text-white transition hover:bg-emerald-500"
-            >
-              Get the Full Bundle — $97
-            </a>
-            <a
-              href="#pricing"
-              className="rounded-lg border border-gray-600 px-8 py-3 font-semibold text-gray-300 transition hover:bg-gray-800"
-            >
-              See Individual Packs
-            </a>
+          <div className="mt-8 flex justify-center">
+            <WaitlistForm buttonText="Get it — $97" variant="cta" />
           </div>
-          <p className="mt-3 text-sm text-gray-500">Individual packs $49–$69 · Bundle $97 (all 5 — save $168) · One-time payment · 30-day guarantee</p>
+          <p className="mt-3 text-sm text-gray-500">$97 — one-time · No subscription · Lifetime access</p>
         </div>
       </section>
 
@@ -431,7 +175,7 @@ export default function Home() {
             <a href="/terms" className="hover:text-gray-300 transition">Terms of Use</a>
             <a href="https://x.com/3voai" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition">X @3voai</a>
           </div>
-          <p>© 2026 Automation Workflow Templates — The 3vo.ai team</p>
+          <p>© 2026 tools.3vo.ai — The 3vo.ai team</p>
         </div>
       </footer>
     </main>
