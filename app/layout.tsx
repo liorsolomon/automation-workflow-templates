@@ -9,6 +9,8 @@ const geistSans = Geist({
   display: "swap",
 });
 
+const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://tools.3vo.ai"),
   title: "Automation Workflow Templates — n8n & Make Templates for SMBs",
@@ -28,6 +30,7 @@ export const metadata: Metadata = {
     title: "Automation Workflow Templates — n8n & Make Templates for SMBs",
     description: "Ready-to-import n8n and Make workflow templates for small businesses. Automate lead capture, invoicing, social scheduling, and more. No developer needed.",
   },
+  ...(googleVerification ? { verification: { google: googleVerification } } : {}),
 };
 
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
