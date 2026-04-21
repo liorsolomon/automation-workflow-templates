@@ -7,6 +7,18 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [roiWorkflow, setRoiWorkflow] = useState('Lead capture');
+  const [roiFrequency, setRoiFrequency] = useState(5);
+
+  const workflowOptions = [
+    { label: 'Lead capture', slug: 'Lead Capture → CRM', price: '$49' },
+    { label: 'Invoicing', slug: 'Invoicing & Payments', price: '$49' },
+    { label: 'Social scheduling', slug: 'Social Media Scheduling', price: '$49' },
+    { label: 'Client onboarding', slug: 'Client Onboarding', price: '$49' },
+    { label: 'Reporting', slug: 'Reporting & Analytics', price: '$49' },
+  ];
+  const selectedWorkflow = workflowOptions.find((w) => w.label === roiWorkflow) ?? workflowOptions[0];
+  const hoursSaved = Math.round((roiFrequency * 20 * 4.33) / 60);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,7 +113,7 @@ export default function Home() {
         <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-10 gap-y-2 text-sm text-gray-400">
           <span>✦ Works with n8n &amp; Make (Integromat)</span>
           <span>✦ Import in under 5 minutes</span>
-          <span>✦ Used by 800+ SMBs</span>
+          <span>✦ First 50 buyers get direct Slack support</span>
           <span>✦ Saves 10+ hours/week</span>
         </div>
       </div>
@@ -173,8 +185,54 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ROI Calculator */}
+      <section className="px-6 py-16 bg-gray-950">
+        <div className="mx-auto max-w-2xl">
+          <h2 className="text-center text-3xl font-bold sm:text-4xl mb-3">How much time could you save?</h2>
+          <p className="text-center text-gray-400 mb-10 text-sm">Estimates are approximate — based on 20 minutes saved per workflow run.</p>
+          <div className="rounded-2xl border border-gray-800 bg-gray-900 p-8 space-y-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-300 mb-2">Which workflow do you want to automate?</label>
+              <select
+                value={roiWorkflow}
+                onChange={(e) => setRoiWorkflow(e.target.value)}
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white focus:border-emerald-500 focus:outline-none"
+              >
+                {workflowOptions.map((w) => (
+                  <option key={w.label} value={w.label}>{w.label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-300 mb-2">
+                How many times do you do this per week?
+              </label>
+              <input
+                type="number"
+                min={1}
+                max={50}
+                value={roiFrequency}
+                onChange={(e) => setRoiFrequency(Math.max(1, Math.min(50, Number(e.target.value))))}
+                className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white focus:border-emerald-500 focus:outline-none"
+              />
+            </div>
+            <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-6 py-5 text-center">
+              <p className="text-sm text-gray-400 mb-1">This workflow saves you approximately</p>
+              <p className="text-4xl font-extrabold text-emerald-400">{hoursSaved} hours<span className="text-xl font-semibold text-emerald-300">/month</span></p>
+              <p className="text-xs text-gray-500 mt-2">Estimate based on ~20 min saved per run</p>
+            </div>
+            <a
+              href="#packs"
+              className="block w-full rounded-lg bg-emerald-500 px-6 py-3 text-center font-bold text-gray-950 hover:bg-emerald-400 transition-colors"
+            >
+              Get the {selectedWorkflow.label} template → {selectedWorkflow.price}
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Template packs */}
-      <section className="px-6 py-20">
+      <section id="packs" className="px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-center text-3xl font-bold sm:text-4xl">
             Workflow packs built for real business needs
