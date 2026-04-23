@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+interface ResendEmailResponse {
+  id?: string;
+  error?: { message: string };
+}
+
 export async function POST(req: NextRequest) {
   const { name, email, message } = await req.json();
 
@@ -11,7 +16,7 @@ export async function POST(req: NextRequest) {
 
   if (resendApiKey) {
     try {
-      await fetch('https://api.resend.com/emails', {
+      const response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${resendApiKey}`,
@@ -25,6 +30,14 @@ export async function POST(req: NextRequest) {
           html: `<p><strong>From:</strong> ${name} &lt;${email}&gt;</p><p><strong>Message:</strong></p><p>${message.replace(/\n/g, '<br>')}</p>`,
         }),
       });
+
+      const data: ResendEmailResponse = await response.json();
+
+      if (data.id) {
+        console.log(`[contact] Contact form email sent from ${email}. Resend ID: ${data.id}`);
+      } else if (data.error) {
+        console.error(`[contact] Resend email failed:`, data.error.message);
+      }
     } catch (err) {
       console.error('[contact] Resend error:', err);
     }

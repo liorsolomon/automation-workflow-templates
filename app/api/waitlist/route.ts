@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const CAMPAIGN_ID = 'automation-workflow-templates';
 
+interface ResendEmailResponse {
+  id?: string;
+  error?: { message: string };
+}
+
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
 
@@ -31,6 +36,8 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  let emailDelivered = false;
+
   if (resendApiKey) {
     // Add contact to Resend audience for future marketing emails
     if (resendAudienceId) {
@@ -50,7 +57,7 @@ export async function POST(req: NextRequest) {
 
     // Send confirmation email to the customer
     try {
-      await fetch('https://api.resend.com/emails', {
+      const response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${resendApiKey}`,
@@ -81,10 +88,19 @@ export async function POST(req: NextRequest) {
 </html>`,
         }),
       });
+
+      const data: ResendEmailResponse = await response.json();
+
+      if (data.id) {
+        emailDelivered = true;
+        console.log(`[waitlist] Email sent successfully to ${email}. Resend ID: ${data.id}`);
+      } else if (data.error) {
+        console.error(`[waitlist] Resend email failed for ${email}:`, data.error.message);
+      }
     } catch (err) {
       console.error('[waitlist] Resend welcome email error:', err);
     }
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, emailDelivered });
 }
