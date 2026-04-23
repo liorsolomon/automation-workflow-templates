@@ -73,7 +73,7 @@ export default function Home() {
             No renewals.
           </p>
           <div className="mt-10 flex justify-center">
-            <WaitlistForm buttonText="Get it — $97" />
+            <WaitlistForm buttonText="Get Early Access — Free" />
           </div>
           <p className="mt-3 text-sm text-gray-500">$97 — one-time · No subscription · Lifetime access</p>
         </div>
@@ -159,7 +159,7 @@ export default function Home() {
             planning. One-time. Yours forever.
           </p>
           <div className="mt-8 flex justify-center">
-            <WaitlistForm buttonText="Get it — $97" variant="cta" />
+            <WaitlistForm buttonText="Get Early Access — Free" variant="cta" />
           </div>
           <p className="mt-3 text-sm text-gray-500">$97 — one-time · No subscription · Lifetime access</p>
         </div>
