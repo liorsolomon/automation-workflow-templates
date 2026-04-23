@@ -20,13 +20,16 @@ This validates that:
 
 ## How to Verify Completion
 
-### 1. Check Server Logs
+### 1. Check Centralized Email Service Logs
 
-Successful email delivery shows in production logs:
+Email delivery is now managed by the central `3vo.ai` service at `/api/resend-sync`.
+Successful deliveries are logged there:
 
 ```
-[waitlist] Email sent successfully to user@example.com. Resend ID: <resend-email-id>
+[resend-sync] Email sent successfully to user@example.com. Resend ID: <resend-email-id>
 ```
+
+Check logs on the main 3vo.ai deployment for the `resend-sync` endpoint.
 
 ### 2. Resend Dashboard
 
@@ -39,11 +42,11 @@ Successful email delivery shows in production logs:
 
 ```sql
 SELECT email, created_at FROM email_waitlist 
-WHERE campaign_id = 'automation-workflow-templates'
+WHERE campaign_id = 'tools'
 ORDER BY created_at DESC LIMIT 10;
 ```
 
-Real user emails will appear here when they submit the form.
+Real user emails will appear here when they submit the form. Note: `campaign_id` is now "tools" (shared across all 3vo products).
 
 ### 4. Analytics Tracking
 
@@ -56,15 +59,27 @@ Check that events are fired:
 
 ## Current Status
 
-- **Email System**: ✅ Implemented (Resend integration)
-- **Delivery Logging**: ✅ Added (tracks Resend email IDs)
+- **Email System**: ✅ Implemented (Resend integration via centralized 3vo.ai service)
+- **Delivery Logging**: ✅ Configured (centralized in 3vo.ai `/api/resend-sync` endpoint)
 - **Analytics**: ✅ Configured (PostHog, GA4, Meta Pixel)
-- **Real User Confirmation**: ⏳ Pending (check when first user joins)
+- **Waitlist Storage**: ✅ Supabase integration with `campaign_id: 'tools'`
+- **Real User Confirmation**: ⏳ Pending (monitor Resend dashboard and Supabase for first signup)
 
 ---
 
+## Architecture
+
+As of April 2026, email delivery has been centralized to improve monitoring and key management:
+
+- **automation-workflow-templates** delegates email sending to the central 3vo.ai service
+- Central `/api/resend-sync` endpoint manages all Resend API interactions
+- Supabase stores all waitlist signups across products with `campaign_id='tools'`
+- Verification script: `scripts/verify-milestone.sh`
+
 ## Related Documentation
 
-- Email API Routes: `app/api/waitlist/route.ts`, `app/api/contact/route.ts`
+- Email API Route: `app/api/waitlist/route.ts` (delegates to central service)
 - Frontend Form: `app/WaitlistForm.tsx`
-- Architecture: `../ARCHITECTURE.md` (Resend in section 3.3)
+- Verification Script: `scripts/verify-milestone.sh`
+- Central Service: 3vo-ai project `/api/resend-sync`
+- Architecture: `../ARCHITECTURE.md` (Resend in section 3)
