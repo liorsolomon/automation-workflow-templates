@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+const STRIPE_LINK = process.env.NEXT_PUBLIC_STRIPE_LINK || 'https://buy.stripe.com/aFa7sK9r2dN29z171gfMA01';
+
 export default function Home() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -79,8 +81,17 @@ export default function Home() {
             Start with working templates, not blank screens.
           </p>
           <div className="mt-10">
+            <a
+              href={STRIPE_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-8 py-4 text-lg font-bold text-white transition hover:bg-emerald-500 shadow-lg shadow-emerald-900/40 mb-4"
+            >
+              Buy Now — $97 →
+            </a>
+            <p className="text-sm text-gray-500 mb-4">or join the waitlist for launch updates:</p>
             {submitted ? (
-              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-emerald-300">
+              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-emerald-300 max-w-md mx-auto">
                 <p className="text-lg font-semibold">You&apos;re on the list!</p>
                 <p className="mt-1 text-sm">We&apos;ll send you launch-day pricing and a free starter workflow.</p>
               </div>
@@ -97,13 +108,13 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="rounded-lg bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-500 disabled:opacity-50"
+                  className="rounded-lg bg-gray-700 px-6 py-3 font-semibold text-white transition hover:bg-gray-600 disabled:opacity-50"
                 >
-                  {loading ? 'Joining...' : 'Get Early Access'}
+                  {loading ? 'Joining...' : 'Get Updates'}
                 </button>
               </form>
             )}
-            <p className="mt-3 text-sm text-gray-500">Individual packs $49–$97 · Bundle $97 (save $168) · One-time payment</p>
+            <p className="mt-3 text-sm text-gray-500">Individual packs $49–$97 · Bundle $97 (save $168) · One-time payment · 30-day guarantee</p>
           </div>
         </div>
       </section>
@@ -479,29 +490,16 @@ export default function Home() {
             Join the waitlist and get a free Lead Capture → CRM starter workflow on launch day.
             Limited early-access pricing — lock it in now.
           </p>
-          <div className="mt-8">
-            {submitted ? (
-              <p className="text-emerald-300 text-lg font-semibold">You&apos;re already on the list! ✅</p>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-emerald-500 focus:outline-none sm:w-80"
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="rounded-lg bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-500 disabled:opacity-50"
-                >
-                  {loading ? 'Joining...' : 'Get Early Access'}
-                </button>
-              </form>
-            )}
-            <p className="mt-3 text-sm text-gray-500">Individual packs $49–$97 · Bundle $97 (all 5 — save $168) · One-time payment · 30-day guarantee</p>
+          <div className="mt-8 flex flex-col items-center gap-4">
+            <a
+              href={STRIPE_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-10 py-4 text-lg font-bold text-white transition hover:bg-emerald-500 shadow-lg shadow-emerald-900/40"
+            >
+              Buy Now — $97 →
+            </a>
+            <p className="text-sm text-gray-500">Bundle · All 5 packs · One-time · 30-day guarantee</p>
           </div>
         </div>
       </section>
