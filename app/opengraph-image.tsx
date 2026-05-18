@@ -22,6 +22,7 @@ export default function Image() {
       >
         <div
           style={{
+            display: "flex",
             background: "rgba(16,185,129,0.15)",
             border: "1px solid rgba(16,185,129,0.4)",
             borderRadius: "999px",
@@ -36,6 +37,7 @@ export default function Image() {
         </div>
         <div
           style={{
+            display: "flex",
             fontSize: "58px",
             fontWeight: 800,
             color: "#ffffff",
@@ -44,13 +46,11 @@ export default function Image() {
             marginBottom: "24px",
           }}
         >
-          Automate your business{" "}
-          <span style={{ color: "#34d399" }}>
-            without writing a single line of code.
-          </span>
+          Automate your business without writing a single line of code.
         </div>
         <div
           style={{
+            display: "flex",
             fontSize: "24px",
             color: "#9ca3af",
             textAlign: "center",
@@ -61,6 +61,7 @@ export default function Image() {
         </div>
         <div
           style={{
+            display: "flex",
             marginTop: "40px",
             fontSize: "20px",
             color: "#6b7280",
