@@ -5,9 +5,6 @@ import { useState } from 'react';
 const STRIPE_LINK = process.env.NEXT_PUBLIC_STRIPE_LINK || 'https://buy.stripe.com/aFa7sK9r2dN29z171gfMA01';
 
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [roiWorkflow, setRoiWorkflow] = useState('Lead capture');
   const [roiFrequency, setRoiFrequency] = useState(5);
@@ -21,36 +18,6 @@ export default function Home() {
   ];
   const selectedWorkflow = workflowOptions.find((w) => w.label === roiWorkflow) ?? workflowOptions[0];
   const hoursSaved = Math.round((roiFrequency * 20 * 4.33) / 60);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const res = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      if (res.ok) {
-        setSubmitted(true);
-        if (typeof window !== 'undefined' && (window as any).posthog) {
-          (window as any).posthog.capture('waitlist_submitted', { email });
-        }
-        // Meta Pixel Lead conversion
-        if (typeof window !== 'undefined' && (window as any).fbq) {
-          (window as any).fbq('track', 'Lead');
-        }
-        // GA4 sign_up conversion
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'sign_up', { method: 'waitlist' });
-        }
-      }
-    } catch {
-      // fail silently
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const faqs = [
     { q: 'Do I need a Zapier or Make account?', a: 'Yes — both have free tiers. Paid tiers are needed for multi-step workflows, but you can test on free.' },
@@ -68,7 +35,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-gray-950 to-gray-950 px-6 py-24 text-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-600/20 via-transparent to-transparent" />
         <div className="relative mx-auto max-w-3xl">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm text-emerald-300">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/60 bg-emerald-500/20 px-4 py-1.5 text-sm font-medium text-emerald-300">
             <span className="inline-block h-2 w-2 rounded-full bg-emerald-400" />
             No developer required · Works with n8n &amp; Make
           </div>
@@ -80,41 +47,19 @@ export default function Home() {
             Ready-to-import n8n and Make workflow templates for SMBs, agencies, and ops teams.
             Start with working templates, not blank screens.
           </p>
-          <div className="mt-10">
+          <div className="mt-10 flex flex-col items-center gap-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/50 bg-amber-500/15 px-4 py-1.5 text-sm font-semibold text-amber-300">
+              ⚡ First 50 buyers: Direct Slack support included
+            </div>
             <a
               href={STRIPE_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-8 py-4 text-lg font-bold text-white transition hover:bg-emerald-500 shadow-lg shadow-emerald-900/40 mb-4"
+              className="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-8 py-4 text-lg font-bold text-white transition hover:bg-emerald-500 shadow-lg shadow-emerald-900/40"
             >
               Buy Now — $97 →
             </a>
-            <p className="text-sm text-gray-500 mb-4">or join the waitlist for launch updates:</p>
-            {submitted ? (
-              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-emerald-300 max-w-md mx-auto">
-                <p className="text-lg font-semibold">You&apos;re on the list!</p>
-                <p className="mt-1 text-sm">We&apos;ll send you launch-day pricing and a free starter workflow.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-white placeholder-gray-400 focus:border-emerald-500 focus:outline-none sm:w-80"
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="rounded-lg bg-gray-700 px-6 py-3 font-semibold text-white transition hover:bg-gray-600 disabled:opacity-50"
-                >
-                  {loading ? 'Joining...' : 'Get Updates'}
-                </button>
-              </form>
-            )}
-            <p className="mt-3 text-sm text-gray-500">Individual packs $49–$97 · Bundle $97 (save $168) · One-time payment · 30-day guarantee</p>
+            <p className="text-sm text-gray-500">Starter Pack $49 · Pro Bundle $97 (5 packs, save $168) · One-time payment · 30-day guarantee</p>
           </div>
         </div>
       </section>
@@ -252,7 +197,7 @@ export default function Home() {
             Each pack includes full JSON templates, setup guide, and troubleshooting docs.
           </p>
           <p className="mt-2 text-center text-sm text-emerald-400 font-semibold">
-            Individual packs $49–$97 each. Full bundle: <span className="line-through text-gray-500">$265</span> $97 — save $168.
+            Starter Pack $49 · Pro Bundle $97 (5 packs, save $168) — one-time, no subscription.
           </p>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
@@ -487,8 +432,7 @@ export default function Home() {
             <span className="text-emerald-400">should be running on autopilot.</span>
           </h2>
           <p className="mt-4 text-gray-300">
-            Join the waitlist and get a free Lead Capture → CRM starter workflow on launch day.
-            Limited early-access pricing — lock it in now.
+            Get all 5 workflow packs — Lead Capture, Invoicing, Social Scheduling, Email Ops, and E-commerce — for one flat price. Start automating today.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4">
             <a
