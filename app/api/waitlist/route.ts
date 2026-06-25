@@ -28,7 +28,6 @@ export async function POST(req: NextRequest) {
         utm_source: utm_source || "",
         utm_medium: utm_medium || "",
         utm_campaign: utm_campaign || "",
-        utm_content: utm_content || "",
       }),
     });
     if (!res.ok) {
