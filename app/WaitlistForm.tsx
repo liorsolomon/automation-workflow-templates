@@ -1,10 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface WaitlistFormProps {
   buttonText?: string;
   variant?: "hero" | "cta";
+}
+
+function getUtmParams() {
+  if (typeof window === "undefined") return {};
+  const p = new URLSearchParams(window.location.search);
+  const stored = (() => { try { return JSON.parse(sessionStorage.getItem("utm_3vo") || "{}"); } catch { return {}; } })();
+  return {
+    utm_source: p.get("utm_source") || stored.utm_source || "",
+    utm_medium: p.get("utm_medium") || stored.utm_medium || "",
+    utm_campaign: p.get("utm_campaign") || stored.utm_campaign || "",
+    utm_content: p.get("utm_content") || stored.utm_content || "",
+  };
 }
 
 export default function WaitlistForm({
@@ -15,6 +27,14 @@ export default function WaitlistForm({
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const utms = { utm_source: p.get("utm_source"), utm_medium: p.get("utm_medium"), utm_campaign: p.get("utm_campaign"), utm_content: p.get("utm_content") };
+    if (Object.values(utms).some(Boolean)) {
+      try { sessionStorage.setItem("utm_3vo", JSON.stringify(utms)); } catch {}
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -22,7 +42,7 @@ export default function WaitlistForm({
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, ...getUtmParams() }),
       });
       if (res.ok) {
         setSubmitted(true);
